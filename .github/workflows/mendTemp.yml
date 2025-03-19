@@ -1,4 +1,4 @@
-name: Mend AI
+name: Mend AI Temp
 
 on: workflow_dispatch
 
