@@ -1,0 +1,42 @@
+name: Mend AI
+
+on: workflow_dispatch
+
+jobs:
+  cli:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9']
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install virtualenv --user
+        pip install -r requirements.txt
+
+    - name: Mend CLI Scan
+      env:
+        MEND_EMAIL: ${{secrets.MEND_EMAIL_TEMP}}
+        MEND_USER_KEY: ${{secrets.MEND_USER_KEY_TEMP}}
+        MEND_URL: https://sap.whitesourcesoftware.com/
+        MEND_LOG_LEVEL: DEBUG
+      run: |
+        echo Downloading Mend CLI
+        curl https://downloads.mend.io/cli/linux_amd64/mend -o /usr/local/bin/mend && chmod +x /usr/local/bin/mend
+        echo run Mend scan
+        mend dep -u -s "*//AI//AutoPrompt"
+        
+    - name: 'Upload .mend/logs folder'
+      uses: actions/upload-artifact@v4
+      with:
+        name: Mend logs
+        path: /home/runner/.mend/logs/
+        retention-days: 1
