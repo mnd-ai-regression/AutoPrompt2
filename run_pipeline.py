@@ -20,6 +20,9 @@ parser.add_argument('--num_steps', default=40, type=int, help='Number of iterati
 
 opt = parser.parse_args()
 
+
+
+
 if opt.batch_config_path == '':
     # load the basic configuration using load_yaml
     config_params = load_yaml(opt.basic_config_path)
