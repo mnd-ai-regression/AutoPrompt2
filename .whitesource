@@ -2,6 +2,8 @@
   "settingsInheritedFrom": "DimaMend/whitesource-config@main",
   "scanSettings": {
     "configMode": "LOCAL"
+  },
+  "scanSettings": {
+    "enableReachability": true
   }
 }
-
