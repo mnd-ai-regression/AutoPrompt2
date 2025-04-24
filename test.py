@@ -1,8 +1,6 @@
 from transformers import AutoTokenizer, AutoModelForMaskedLM
 
 # Load the tokenizer and model
-# tokenizer = AutoTokenizer.from_pretrained("google-bert/bert-base-uncased")
-model = AutoModelForMaskedLM.from_pretrained("google-bert/bert-base-uncased")
 model = AutoModelForMaskedLM.from_pretrained("microsoft/bitnet-b1.58-2B-4T")
 
 # Example input
